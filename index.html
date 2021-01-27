@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bank</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="welcome">
+        <div class="container col-md-8 py-5">
+            <h1 class="text-center mb-5">Welcome to My Bank</h1>
+            <div class="submit-area text-center">
+                <h3 class="mb-4">Login</h3>
+                <input class="form-control" type="text" placeholder="Enter your Email">
+                <input class="form-control my-3" type="password" placeholder="Enter your Password">
+                <button id="login-btn" class="btn btn-success" type="submit">Submit</button>
+            </div>
+        </div>
+    </section>
+    <section id="transaction">
+        <div class="container">
+            <h2 class="text-center my-5">Transaction Area</h2>
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="deposit status">
+                        <h5>Deposit</h5>
+                        <h2>$ <span id="haven-deposit">00</span></h2>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="withdraw status">
+                        <h5>Withdraw</h5>
+                        <h2>$ <span id="haven-withdraw">00</span></h2>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="balance status">
+                        <h5>Balance</h5>
+                        <h2>$ <span id="haven-balance">1240</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="submit-area">
+                        <h4>Deposit</h4>
+                        <input id="deposit-amount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                        <button id="deposit-btn" class="btn btn-primary">Deposit</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="submit-area">
+                        <h4>Withdraw</h4>
+                        <input id="withdraw-amount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                        <button id="withdraw-btn" class="btn btn-primary">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const loginBtn = document.getElementById('login-btn');
+        loginBtn.addEventListener('click', function(event) {
+            const welcome = document.getElementById('welcome');
+            welcome.style.display = 'none';
+            const transaction = document.getElementById('transaction');
+            transaction.style.display = 'block';
+        })
+
+        document.getElementById('deposit-btn').addEventListener('click', function(event) {
+            const havenDeposit = textToNum('haven-deposit');
+            const currentDeposit = inputToNum('deposit-amount');
+            updateStatus(havenDeposit, currentDeposit, 'haven-deposit');
+        })
+
+        document.getElementById('withdraw-btn').addEventListener('click', function(event) {
+            const havenWithdraw = textToNum('haven-withdraw');
+            let currentWithdraw = inputToNum('withdraw-amount');
+            currentWithdraw *= (-1);
+            updateStatus(havenWithdraw, currentWithdraw, 'haven-withdraw');
+        })
+
+        function updateStatus(havenAmount, currentAmount, havenId) {
+            const totalAmount = havenAmount + currentAmount;
+            document.getElementById(havenId).innerHTML = totalAmount;
+            let balanceAmount = textToNum('haven-balance');
+            balanceAmount += currentAmount;
+            document.getElementById('haven-balance').innerHTML = balanceAmount;
+        }
+
+        function textToNum(id){
+            const text = document.getElementById(id).innerText;
+            const num = parseFloat(text);
+            return num;
+        }
+
+        function inputToNum(id){
+            const text = document.getElementById(id).value;
+            const num = parseFloat(text);
+            return num;
+        }
+    </script>
+</body>
+</html>
