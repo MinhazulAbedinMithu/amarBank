@@ -72,16 +72,24 @@
 
         document.getElementById('deposit-btn').addEventListener('click', function(event) {
             const currentDeposit = inputToNum('deposit-amount');
-            updateSpanText('haven-deposit', currentDeposit);
-            updateSpanText('haven-balance', currentDeposit);
-            document.getElementById('deposit-amount').value = '';
+            if(currentDeposit < 0){
+                alert("It cannot be negative value.");
+            }else{
+                updateSpanText('haven-deposit', currentDeposit);
+                updateSpanText('haven-balance', currentDeposit);
+                document.getElementById('deposit-amount').value = '';
+            }
         })
 
         document.getElementById('withdraw-btn').addEventListener('click', function(event) {
             let currentWithdraw = inputToNum('withdraw-amount');
-            updateSpanText('haven-withdraw', currentWithdraw);
-            updateSpanText('haven-balance', -1*currentWithdraw);
-            document.getElementById('withdraw-amount').value = '';
+            if(currentWithdraw < 0){
+                alert('It cannot be negative value');
+            }else{
+                updateSpanText('haven-withdraw', currentWithdraw);
+                updateSpanText('haven-balance', -1*currentWithdraw);
+                document.getElementById('withdraw-amount').value = '';
+            }
             
             
         })
